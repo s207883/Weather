@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Weather.Core.Structs
 {
@@ -7,6 +8,7 @@ namespace Weather.Core.Structs
 	/// </summary>
 	public struct WeatherModel
 	{
+
 		/// <summary>
 		/// Температура.
 		/// </summary>

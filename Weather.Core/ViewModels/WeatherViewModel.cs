@@ -17,6 +17,6 @@ namespace Weather.Core.ViewModels
 		/// <summary>
 		/// Временной промежуток.
 		/// </summary>
-		public TimeSpan TimeSpan { get; set; }
+		public TimeRange TimeRange { get; set; }
 	}
 }

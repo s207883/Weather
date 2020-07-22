@@ -8,6 +8,7 @@ namespace Weather.Core.Interfaces
 	{
 		/// <summary>
 		/// Получить погоду по координатам.
+		/// (Без указания даты, погода выводится на 7 дней.)
 		/// </summary>
 		/// <param name="coordinates">Координаты.</param>
 		/// <returns>Модель прогноза погоды.</returns>
@@ -17,8 +18,8 @@ namespace Weather.Core.Interfaces
 		/// Получить погоду по координатам.
 		/// </summary>
 		/// <param name="coordinates">Координаты.</param>
-		/// <param name="timeSpan">Временной промежуток.</param>
+		/// <param name="timeRange">Временной промежуток.</param>
 		/// <returns>Модель прогноза погоды.</returns>
-		public WeatherViewModel GetWeatherByCoordinates(Coordinates coordinates, TimeSpan timeSpan);
+		public WeatherViewModel GetWeatherByCoordinates(Coordinates coordinates, TimeRange timeRange);
 	}
 }
