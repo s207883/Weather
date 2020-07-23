@@ -21,16 +21,17 @@ namespace Weather.BLL.Services
 		public async Task<WeatherViewModel> GetWeatherByCoordinatesAsync(Coordinates coordinates, TimeRange timeRange)
 #pragma warning restore CS1998 // В асинхронном методе отсутствуют операторы await, будет выполнен синхронный метод
 		{
-			var fakeWeather = new WeatherViewModel { TimeRange = timeRange};
+			var fakeWeather = new WeatherViewModel { TimeRange = timeRange };
 			var fakeWeatherData = new List<WeatherModel>();
 
-			for (DateTime date = timeRange.StartDate; date <= timeRange.EndDate; date.AddDays(1))
+			for (DateTime date = timeRange.StartDate; date <= timeRange.EndDate; date = date.AddDays(1))
 			{
 				fakeWeatherData.Add(
-					new WeatherModel { 
-						Humidity = (float)(new Random().NextDouble()),
-						Pressure = (float)(new Random().NextDouble()),
-						Temperature = (float)(new Random().NextDouble()),
+					new WeatherModel
+					{
+						Humidity = (float)(new Random().NextDouble() * 10),
+						Pressure = (float)(new Random().NextDouble() * 10),
+						Temperature = (float)(new Random().NextDouble() * 10),
 						WeatherDate = date,
 					}
 					);
