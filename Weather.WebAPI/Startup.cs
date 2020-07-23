@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.OpenApi.Models;
+using Weather.BLL.Services;
+using Weather.Core.Interfaces;
 
 namespace Weather.WebAPI
 {
@@ -26,6 +31,18 @@ namespace Weather.WebAPI
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers();
+
+			services.AddScoped<IWeatherService, FakeWeatherService>(); 
+			services.AddSwaggerGen();
+			services.ConfigureSwaggerGen(options =>
+			{
+				//Determine base path for the application.
+				var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+
+				//Set the comments path for the swagger json and ui.
+				var xmlPath = Path.Combine(basePath, "Weather.WebAPI.xml");
+				options.IncludeXmlComments(xmlPath);
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +56,15 @@ namespace Weather.WebAPI
 			app.UseHttpsRedirection();
 
 			app.UseRouting();
+
+			app.UseSwagger(c =>
+			{
+				c.RouteTemplate = "api-docs/{documentName}/swagger.json";
+			});
+			app.UseSwaggerUI(c =>
+			{
+				c.SwaggerEndpoint("/api-docs/v1/swagger.json", "My API V1");
+			});
 
 			app.UseAuthorization();
 
