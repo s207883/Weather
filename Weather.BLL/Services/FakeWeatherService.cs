@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Weather.Core.Interfaces;
 using Weather.Core.Structs;
 using Weather.Core.ViewModels;
@@ -11,15 +12,18 @@ namespace Weather.BLL.Services
 	/// </summary>
 	public class FakeWeatherService : IWeatherService
 	{
-		public WeatherViewModel GetWeatherByCoordinates(Coordinates coordinates)
+		public async Task<WeatherViewModel> GetWeatherByCoordinatesAsync(Coordinates coordinates)
 		{
-			return GetWeatherByCoordinates(coordinates, new TimeRange { StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(7) });
+			return await GetWeatherByCoordinatesAsync(coordinates, new TimeRange { StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(7) });
 		}
 
-		public WeatherViewModel GetWeatherByCoordinates(Coordinates coordinates, TimeRange timeRange)
+#pragma warning disable CS1998 // В асинхронном методе отсутствуют операторы await, будет выполнен синхронный метод
+		public async Task<WeatherViewModel> GetWeatherByCoordinatesAsync(Coordinates coordinates, TimeRange timeRange)
+#pragma warning restore CS1998 // В асинхронном методе отсутствуют операторы await, будет выполнен синхронный метод
 		{
 			var fakeWeather = new WeatherViewModel { TimeRange = timeRange};
 			var fakeWeatherData = new List<WeatherModel>();
+
 			for (DateTime date = timeRange.StartDate; date <= timeRange.EndDate; date.AddDays(1))
 			{
 				fakeWeatherData.Add(

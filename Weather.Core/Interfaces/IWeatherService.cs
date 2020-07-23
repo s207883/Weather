@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Weather.Core.Structs;
 using Weather.Core.ViewModels;
 
@@ -12,7 +13,7 @@ namespace Weather.Core.Interfaces
 		/// </summary>
 		/// <param name="coordinates">Координаты.</param>
 		/// <returns>Модель прогноза погоды.</returns>
-		public WeatherViewModel GetWeatherByCoordinates(Coordinates coordinates);
+		public Task<WeatherViewModel> GetWeatherByCoordinatesAsync(Coordinates coordinates);
 
 		/// <summary>
 		/// Получить погоду по координатам.
@@ -20,6 +21,6 @@ namespace Weather.Core.Interfaces
 		/// <param name="coordinates">Координаты.</param>
 		/// <param name="timeRange">Временной промежуток.</param>
 		/// <returns>Модель прогноза погоды.</returns>
-		public WeatherViewModel GetWeatherByCoordinates(Coordinates coordinates, TimeRange timeRange);
+		public Task<WeatherViewModel> GetWeatherByCoordinatesAsync(Coordinates coordinates, TimeRange timeRange);
 	}
 }
