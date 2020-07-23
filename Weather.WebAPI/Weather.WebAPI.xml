@@ -4,13 +4,19 @@
         <name>Weather.WebAPI</name>
     </assembly>
     <members>
-        <member name="M:Weather.WebAPI.Controllers.WeatherForecastController.GetWeatherByCoordinates(System.Single,System.Single)">
+        <member name="M:Weather.WebAPI.Controllers.WeatherForecastController.GetWeatherByCoordinates(Weather.Core.RequestModels.WeatherRequestModelBase)">
             <summary>
             Получить погоду по координатам.
             </summary>
-            <param name="latitude">Широта.</param>
-            <param name="longitude">Долгота.</param>
+            <param name="weatherRequestModel">Модель запроса.</param>
             <returns>Прогноз погоды</returns>
+        </member>
+        <member name="M:Weather.WebAPI.Controllers.WeatherForecastController.GetWeatherByCoordinatesAndDate(Weather.Core.RequestModels.WeatherRequestModelWithDate)">
+            <summary>
+            Получить погоду по координатам и временному промежутку.
+            </summary>
+            <param name="weatherRequestModel">Модель запроса.</param>
+            <returns>Прогноз погоды.</returns>
         </member>
     </members>
 </doc>
