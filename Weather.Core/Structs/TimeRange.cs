@@ -8,6 +8,17 @@ namespace Weather.Core.Structs
 	public struct TimeRange
 	{
 		/// <summary>
+		/// Временной промежуток.
+		/// </summary>
+		/// <param name="startDate">Начало.</param>
+		/// <param name="endDate">Конец.</param>
+		public TimeRange(DateTime startDate, DateTime endDate)
+		{
+			StartDate = startDate;
+			EndDate = endDate;
+		}
+
+		/// <summary>
 		/// Начальная дата.
 		/// </summary>
 		public DateTime StartDate { get; set; }
