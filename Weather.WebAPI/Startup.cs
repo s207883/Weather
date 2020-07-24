@@ -32,7 +32,7 @@ namespace Weather.WebAPI
 		{
 			services.AddControllers();
 
-			services.AddScoped<IWeatherService, FakeWeatherService>(); 
+			services.AddScoped<IWeatherService, WeatherapiWeatherService>(); 
 			services.AddSwaggerGen();
 			services.ConfigureSwaggerGen(options =>
 			{

@@ -9,7 +9,6 @@ namespace Weather.Core.Interfaces
 	{
 		/// <summary>
 		/// Получить погоду по координатам.
-		/// (Без указания даты, погода выводится на 7 дней.)
 		/// </summary>
 		/// <param name="coordinates">Координаты.</param>
 		/// <returns>Модель прогноза погоды.</returns>

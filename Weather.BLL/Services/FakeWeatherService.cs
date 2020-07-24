@@ -14,7 +14,7 @@ namespace Weather.BLL.Services
 	{
 		public async Task<WeatherViewModel> GetWeatherByCoordinatesAsync(Coordinates coordinates)
 		{
-			return await GetWeatherByCoordinatesAsync(coordinates, new TimeRange { StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(7) });
+			return await GetWeatherByCoordinatesAsync(coordinates, new TimeRange { StartDate = DateTime.Now, EndDate = DateTime.Now });
 		}
 
 #pragma warning disable CS1998 // В асинхронном методе отсутствуют операторы await, будет выполнен синхронный метод
