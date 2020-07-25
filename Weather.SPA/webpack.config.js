@@ -76,12 +76,6 @@ module.exports = {
             }
         }),
         new CleanWebpackPlugin(),
-        new CopyWebpackPlugin([
-            {
-                from: path.resolve(__dirname, 'node_modules/swiper/css/swiper.min.css'),
-                to: path.resolve(__dirname, 'dist'),
-            }
-        ]),
         new MiniCssExtractPlugin({
             filename: `${fileName}.css`
         }),

@@ -8,9 +8,34 @@
 </head>
 
 <body>
+    <div id="errors" class="container"></div>
+    <form class="container">
+        <div class="label_container">
+            <label class="input_label">Latitude</label><input type="number">
+        </div>
+        <div class="label_container">
+            <label class="input_label">Longitude</label><input type="number">
+        </div>
+        <button type="submit">Get forecast</button>
+        <button type="reset">Clear form</button>
+    </form>
     <div class="container">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, inventore doloribus enim unde nostrum nemo
-        aut totam fugiat temporibus dolore? Neque enim, a tempore beatae nemo doloribus eligendi qui esse.
+        <div class="checkbox_block_container">
+            <label class="label checkbox_container_label">Check interested data:</label>
+            <div class="checkbox_container">
+                <input id="temperature" type="checkbox">
+                <label for="temperature">Temperature</label>
+            </div>
+            <div class="checkbox_container">
+                <input id="humidity" type="checkbox">
+                <label for="humidity">Humidity</label>
+            </div>
+            <div class="checkbox_container">
+                <input id="windSpeed" type="checkbox">
+                <label for="windSpeed">Average wind speed</label>
+            </div>
+        </div>
+        <canvas id="weatherChart"></canvas>
     </div>
 </body>
 
