@@ -68,6 +68,8 @@ namespace Weather.WebAPI
 
 			app.UseAuthorization();
 
+			app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();
