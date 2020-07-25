@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Weather.Core.Interfaces;
 using Weather.Core.Structs;
@@ -74,48 +75,55 @@ namespace Weather.BLL.Services
             try
             {
                 //"API key is limited to get history data within last 8 days only. Upgrade to Gold or Platinum plans to lift this limit."
-                if (timeRange.StartDate < DateTime.Now.AddDays(-8))
+                if (timeRange.StartDate < DateTime.Now.AddDays(-7))
                 {
-                    timeRange.StartDate = DateTime.Now.AddDays(-8);
+                    timeRange.StartDate = DateTime.Now.AddDays(-7);
                 }
                 if (timeRange.EndDate > DateTime.Now)
                 {
                     timeRange.EndDate = DateTime.Now;
                 }
-                var apiResuestString = _baseAddress
-                    .AppendPathSegment("/history.json")
-                    .SetQueryParams(new
-                    {
-                        key = _apiKey,
-                        q = $"{coordinates.Latitude},{coordinates.Longitude}",
-                        dt = timeRange.StartDate.ToString("yyyy-MM-dd"),
-                        end_dt = timeRange.EndDate.ToString("yyyy-MM-dd"),
-                        lang = "ru"
-                    });
 
-                var apiResponse = await apiResuestString.GetAsync();
+                var result = new WeatherViewModel { TimeRange = timeRange };
+                var forecastList = new List<WeatherModel>();
 
-                var resultContent = await apiResponse.Content.ReadAsStringAsync();
-
-                var parsedResult = JsonConvert.DeserializeObject<WeatherApiResponseModel>(resultContent);
-
-                var weatherData = new List<WeatherModel> { };
-                foreach (var item in parsedResult.forecast.forecastday)
+                //Так как АПИ не дает возможность сделать запрос с выборкой по нескольким дням, приходится спамить сервис запросами по дням. 
+                for (var date = timeRange.StartDate; date < timeRange.EndDate; date = date.AddDays(1))
                 {
-                    var forecast = item.day;
-                    DateTime.TryParse(item.date, out DateTime parsedDate);
-
-                    weatherData.Add(
-                        new WeatherModel
+                    var apiResuestString = _baseAddress
+                        .AppendPathSegment("/history.json")
+                        .SetQueryParams(new
                         {
-                            Humidity = forecast.avghumidity,
-                            Pressure = forecast.pressure_mb,
-                            Temperature = forecast.avgtemp_c,
-                            WeatherDate = parsedDate,
-                        }) ;
+                            key = _apiKey,
+                            q = $"{coordinates.Latitude},{coordinates.Longitude}",
+                            dt = date.ToString("yyyy-MM-dd"),
+                            lang = "ru"
+                        });
+
+                    var apiResponse = await apiResuestString.GetAsync();
+
+                    var resultContent = await apiResponse.Content.ReadAsStringAsync();
+
+                    var parsedResult = JsonConvert.DeserializeObject<WeatherApiResponseModel>(resultContent);
+
+                    var forecast = parsedResult.forecast.forecastday.FirstOrDefault()?.day;
+
+                    if (forecast != default)
+                    {
+                        
+                        forecastList.Add(
+                            new WeatherModel { 
+                                Humidity = forecast.avghumidity,
+                                Pressure = forecast.pressure_mb,
+                                Temperature = forecast.avgtemp_c,
+                                WeatherDate = date
+                            });
+                    }
                 }
 
-                return new WeatherViewModel { TimeRange = timeRange, WeatherData = weatherData };
+                result.WeatherData = forecastList;
+
+                return result;
             }
             catch (Exception exc)
             {
