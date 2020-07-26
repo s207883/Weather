@@ -9,32 +9,27 @@
 
 <body>
     <div id="errors" class="container"></div>
-    <form class="container">
+    <form id="weather_form" class="container">
         <div class="label_container">
-            <label class="input_label">Latitude</label><input type="number">
+            <label class="input_label">Latitude</label>
+            <input required class="input input_numeric" id="latitude" type="number">
         </div>
         <div class="label_container">
-            <label class="input_label">Longitude</label><input type="number">
+            <label class="input_label">Longitude</label>
+            <input required class="input input_numeric" id="longitude" type="number">
+        </div>
+        <div class="label_container">
+            <label class="input_label">Date from</label>
+            <input required class="input input_date" id="dateFrom" type="date">
+        </div>
+        <div class="label_container">
+            <label class="input_label">Date to</label>
+            <input required class="input input_date" id="dateTo" type="date">
         </div>
         <button type="submit">Get forecast</button>
         <button type="reset">Clear form</button>
     </form>
     <div class="container">
-        <div class="checkbox_block_container">
-            <label class="label checkbox_container_label">Check interested data:</label>
-            <div class="checkbox_container">
-                <input id="temperature" type="checkbox">
-                <label for="temperature">Temperature</label>
-            </div>
-            <div class="checkbox_container">
-                <input id="humidity" type="checkbox">
-                <label for="humidity">Humidity</label>
-            </div>
-            <div class="checkbox_container">
-                <input id="windSpeed" type="checkbox">
-                <label for="windSpeed">Average wind speed</label>
-            </div>
-        </div>
         <canvas id="weatherChart"></canvas>
     </div>
 </body>
