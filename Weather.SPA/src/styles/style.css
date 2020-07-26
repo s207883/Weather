@@ -25,3 +25,7 @@
 .checkbox_container {
     display: block;
 }
+
+.input {
+    min-width: 150px;
+}
