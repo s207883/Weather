@@ -58,7 +58,7 @@ namespace Weather.BLL.Services
 
                 var weatherData = new List<WeatherModel>
                 {
-                    new WeatherModel { WeatherDate = currentDateTime, Humidity = todayForecast.avghumidity, Pressure = todayForecast.pressure_mb, Temperature = todayForecast.avgtemp_c }
+                    new WeatherModel { WeatherDate = currentDateTime, Humidity = todayForecast.avghumidity, Precipitation = todayForecast.pressure_mb, Temperature = todayForecast.avgtemp_c }
                 };
 
                 return new WeatherViewModel { TimeRange = new TimeRange(currentDateTime, currentDateTime), WeatherData = weatherData };
@@ -79,9 +79,10 @@ namespace Weather.BLL.Services
                 {
                     timeRange.StartDate = DateTime.Now.AddDays(-7);
                 }
-                if (timeRange.EndDate > DateTime.Now)
+                //Прогноз более чем на 10 дней недоступен.
+                if (timeRange.EndDate > DateTime.Now.AddDays(10))
                 {
-                    timeRange.EndDate = DateTime.Now;
+                    timeRange.EndDate = DateTime.Now.AddDays(10);
                 }
 
                 var result = new WeatherViewModel { TimeRange = timeRange };
@@ -90,8 +91,10 @@ namespace Weather.BLL.Services
                 //Так как АПИ не дает возможность сделать запрос с выборкой по нескольким дням, приходится спамить сервис запросами по дням. 
                 for (var date = timeRange.StartDate; date < timeRange.EndDate; date = date.AddDays(1))
                 {
+                    var apiMethod = date >= DateTime.Today ? "/forecast.json" : "/history.json";
+
                     var apiResuestString = _baseAddress
-                        .AppendPathSegment("/history.json")
+                        .AppendPathSegment(apiMethod)
                         .SetQueryParams(new
                         {
                             key = _apiKey,
@@ -114,7 +117,7 @@ namespace Weather.BLL.Services
                         forecastList.Add(
                             new WeatherModel { 
                                 Humidity = forecast.avghumidity,
-                                Pressure = forecast.pressure_mb,
+                                Precipitation = forecast.totalprecip_mm,
                                 Temperature = forecast.avgtemp_c,
                                 WeatherDate = date
                             });

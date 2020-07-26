@@ -30,7 +30,7 @@ namespace Weather.BLL.Services
 					new WeatherModel
 					{
 						Humidity = (float)(new Random().NextDouble() * 10),
-						Pressure = (float)(new Random().NextDouble() * 10),
+						Precipitation = (float)(new Random().NextDouble() * 10),
 						Temperature = (float)(new Random().NextDouble() * 10),
 						WeatherDate = date,
 					}

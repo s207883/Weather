@@ -20,9 +20,9 @@ namespace Weather.Core.Structs
 		public float Humidity { get; set; }
 
 		/// <summary>
-		/// Давление.
+		/// Осадки (мм).
 		/// </summary>
-		public float Pressure { get; set; }
+		public float Precipitation { get; set; }
 
 		/// <summary>
 		/// Дата измерения.
