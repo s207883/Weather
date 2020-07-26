@@ -59,7 +59,7 @@ namespace Weather.WebAPI.Controllers
 		/// <param name="weatherRequestModel">Модель запроса.</param>
 		/// <returns>Прогноз погоды.</returns>
 		[HttpGet("[action]")]
-		public async Task<ActionResult<BaseApiResponse<WeatherViewModel>>> GetWeatherByCoordinatesAndDate([FromQuery] WeatherRequestModelWithDate weatherRequestModel)
+		public async Task<ActionResult<BaseApiResponse<WeatherViewModel>>> GetHistory([FromQuery] WeatherRequestModelWithDate weatherRequestModel)
 		{
 			if (!ModelState.IsValid)
 			{
