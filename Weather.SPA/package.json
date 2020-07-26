@@ -22,7 +22,6 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-es2015": "^7.0.0-beta.53",
-    "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
     "babel-preset-minify": "^0.5.1",
     "clean-webpack-plugin": "^3.0.0",
