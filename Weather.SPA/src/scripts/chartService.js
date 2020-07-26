@@ -1,6 +1,6 @@
 import "chart.js";
 
-const dataColors = [
+export const dataColors = [
     'rgba(255, 99, 132, 0.6)',
     'rgba(54, 162, 235, 0.2)',
     'rgba(255, 206, 86, 0.2)',
@@ -9,7 +9,7 @@ const dataColors = [
     'rgba(255, 159, 64, 0.2)'
 ];
 
-const borderColors = [
+export const borderColors = [
     'rgba(255, 99, 132, 1)',
     'rgba(54, 162, 235, 1)',
     'rgba(255, 206, 86, 1)',
@@ -26,8 +26,8 @@ const borderColors = [
      labels: Array<string>,
      datasets: [
          {
-             label: 'data_label',
-             data: Array<Number>,
+             labels: string[],
+             data: Number[],
              backgroundColor: dataColors,
              borderColor: borderColors,
              borderWidth: Number}
@@ -37,8 +37,8 @@ const borderColors = [
     
  * @param {string} chartType по-умолчанию 'bar'
  */
-const drawChart = (chartElement, chartData, chartType = 'bar') => {
-    new Chart(chartElement, {
+export const drawChart = (chartElement, chartData, chartType = 'bar') => {
+    var chart = new Chart(chartElement, {
         type: chartType,
         data: {
             labels: chartData.labels,
@@ -54,22 +54,6 @@ const drawChart = (chartElement, chartData, chartType = 'bar') => {
             }
         }
     });
-}
 
-const chartElement = document.getElementById('weatherChart');
-drawChart(chartElement, {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 10, 2, 3],
-        backgroundColor: dataColors[0],
-        borderColor: borderColors[1],
-        borderWidth: 1
-    }, {
-        label: '# of Votes',
-        data: [15, 26, 15, -15, -2, 3],
-        backgroundColor: dataColors[1],
-        borderColor: borderColors[1],
-        borderWidth: 1
-    }]
-});
+    return chart;
+}
