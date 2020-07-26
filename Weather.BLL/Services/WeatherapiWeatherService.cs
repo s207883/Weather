@@ -77,19 +77,19 @@ namespace Weather.BLL.Services
                 //"API key is limited to get history data within last 8 days only. Upgrade to Gold or Platinum plans to lift this limit."
                 if (timeRange.StartDate < DateTime.Now.AddDays(-7))
                 {
-                    timeRange.StartDate = DateTime.Now.AddDays(-7);
+                    timeRange.StartDate = DateTime.Now.AddDays(-7).Date;
                 }
                 //Прогноз более чем на 10 дней недоступен.
                 if (timeRange.EndDate > DateTime.Now.AddDays(10))
                 {
-                    timeRange.EndDate = DateTime.Now.AddDays(10);
+                    timeRange.EndDate = DateTime.Now.AddDays(10).Date;
                 }
 
                 var result = new WeatherViewModel { TimeRange = timeRange };
                 var forecastList = new List<WeatherModel>();
 
                 //Так как АПИ не дает возможность сделать запрос с выборкой по нескольким дням, приходится спамить сервис запросами по дням. 
-                for (var date = timeRange.StartDate; date < timeRange.EndDate; date = date.AddDays(1))
+                for (var date = timeRange.StartDate; date <= timeRange.EndDate; date = date.AddDays(1))
                 {
                     var apiMethod = date >= DateTime.Today ? "/forecast.json" : "/history.json";
 
