@@ -12,11 +12,11 @@
     <form id="weather_form" class="container">
         <div class="label_container">
             <label class="input_label">Latitude</label>
-            <input required class="input input_numeric" id="latitude" type="number">
+            <input required pattern="[0-9.0-9]*" class="input input_numeric" id="latitude" type="text">
         </div>
         <div class="label_container">
             <label class="input_label">Longitude</label>
-            <input required class="input input_numeric" id="longitude" type="number">
+            <input required pattern="[0-9.0-9]*" class="input input_numeric" id="longitude" type="text">
         </div>
         <div class="label_container">
             <label class="input_label">Date from</label>
