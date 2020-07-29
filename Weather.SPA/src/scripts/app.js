@@ -23,8 +23,7 @@ weatherRequestForm.onsubmit = (async (event) => {
 
             const dateFromInput = document.getElementById('dateFrom');
             const dateToInput = document.getElementById('dateTo');
-            console.log('new Date(weatherTimeRange.startDate)', new Date(weatherTimeRange.startDate))
-            console.log('weatherTimeRange.startDate', weatherTimeRange.startDate)
+
             dateFromInput.valueAsDate = new Date(weatherTimeRange.startDate.slice(0, 10));
             dateToInput.valueAsDate = new Date(weatherTimeRange.endDate.slice(0, 10));
 
