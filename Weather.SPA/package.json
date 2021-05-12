@@ -13,7 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "cross-env": "^7.0.2"
   },
   "browserslist": "> 0.25%, not dead",
